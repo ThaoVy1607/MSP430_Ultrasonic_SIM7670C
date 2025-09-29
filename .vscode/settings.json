@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "usslibguiapp.h": "c",
+        "ti_serialcomm.h": "c",
+        "string.h": "c"
+    }
+}

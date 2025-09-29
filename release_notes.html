@@ -1,0 +1,507 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+<meta content="HTML Tidy for Windows (vers 15 August 2007), see www.w3.org" name="generator">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii"><!-- /* * Copyright 2007 by Texas Instruments Incorporated. * All rights reserved. Property of Texas Instruments Incorporated. * Restricted rights to use, duplicate or disclose this code are * granted through contract. * * */ --><title>MSP430 USS SW Lib</title><!-- For now, we use the doxygen style sheet -->
+
+<link href="docs/html/doxygen.css" rel="stylesheet" type="text/css"></head><body>
+<table width="100%">
+<tbody>
+<tr>
+<td bgcolor="black" width="1"><a href="http://www.ti.com"><img src="docs/tilogo.gif" alt="Texas Instruments" border="0"></a></td>
+<td bgcolor="red"><img src="docs/titagline.gif"></td>
+</tr>
+</tbody>
+</table>
+<h1>Ultrasonic Water Meter Demo with MSP430FR6047 &nbsp;02_40_00_00</h1>
+<h2>Release Notes&nbsp;</h2>
+Document Revision: February 22, 2020<br>
+<br>
+<h2><a name="Introduction" id="Introduction">Introduction</a></h2>
+<p>This Ultrasonic Water Flow Meter application is a portable and modular software designed to guide developers in the implementation and customization of their own water meter solutions. </p>
+<p>This document is divided into the following sections:
+<ul>
+<li><a href="#Whats_New">What's New</a></li>
+<li><a href="#Revision_History">Revision History</a><br>
+</li>
+<li><a href="#Installation">Installation and Usage</a></li>
+<li><a href="#Device_Support">Device Support</a><br></li>
+<li><a href="#Dependencies">Dependencies</a></li>
+<li><a href="#Validation">Validation Information</a></li>
+<li><a href="#Upgrade_and_Compatibility_Information">Upgrade and Compatibility Information</a></li>
+<li><a href="#Examples">Examples</a><br>
+</li>
+<li><span style="text-decoration: underline;"><a href="#Known_Issues2">Known Issues</a><br>
+</span></li>
+<li><a href="#Technical_Support">Technical Support and Product Updates</a></li>
+</ul>
+<h3>What's New</h3>
+<ul>
+	<li>MSP430FR604X USS Water Demo:
+		<ul>
+			<li>Bug Fix:
+				<ul>
+					<li>None.</li>
+				</ul>
+			</li>
+			<li>Enhancements:
+				<ul>
+					<li>Updated CCS compiler to v10.0.0.</li>
+					<li>Updated IAR compiler to v7.20.</li>
+					<li>Updated Driverlib to v2.91.12.08</li>
+					<li>Added Water Demo project for MSP430FR6007.</li>
+				</ul>
+			</li>
+			<li>Known Issues:
+				<ul>
+					<li>IAR Water Demo reports an algorithm error when using the optimized library version</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>USS Library:
+		<ul>
+			<li>Please check USSLib Release Notes</li>
+		</ul>
+	</li>
+</ul>
+
+<!--
+<h3>02_10_00_05</h3>
+<ul>
+	<li>MSP430FR6047 USS Water Demo:
+		<ul>
+			<li>Bug Fix:
+				<ul>
+					<li>Check envelope crossing threshold to be different than zero</li>
+				</ul>
+			</li>
+			<li>Enhancements:
+				<ul>
+					<li>Supports library release 2.10.00.07</li>
+					<li>Timer used for USSLib changed from TA4 to TA2</li>
+					<li>Change error message based on timer selection for Design Center</li>
+					<li>Update bandpass LEA filter Coefficients</li>
+					<li>Initialize LEA temp buffer to zero</li>
+					<li>Send clockRelative Error to Design Center when resonator calibration is enabled</li>
+					<li>Place multi-tone memory in RAM (no impact on water demo)</li>
+				</ul>
+			</li>
+			<li>Application migration from previous release:
+				<ul>
+					<li>Application will send clock relative error to Design Center instead of amplitude if resonator calibration is enabled</li>
+					<li>Timer used for USSLib changed from TA4 to TA2 (compatible with previous release 1.40.00.01)</li>
+				</ul>
+			</li>
+			<li>Known Issues:
+				<ul>
+					<li>IAR shows warning due to inconsistent declaration of USS_LEA_IFG in USS_Lib_HAL against USS_lea module. No issues expected.</li>
+					<li>IAR shows warning due to placing of initialized memory segment. No issues expected.</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>USS Library:
+		<ul>
+			<li>Please check USSLib Release Notes</li>
+		</ul>
+	</li>
+</ul>
+-->
+
+<h2>Revision History</h2>
+
+<h3>02_30_00_03</h3>
+<ul>
+	<li>MSP430FR604X USS Water Demo:
+		<ul>
+			<li>Bug Fix:
+				<ul>
+					<li>Updated USS_userConfig.h to configure algorithmsConfig->volumeCalOption = USS_Alg_volume_flow_Calculation_Option_water.</li>
+				</ul>
+			</li>
+			<li>Enhancements:
+				<ul>
+					<li>Updated USS_userConfig.h based on USS SW Library 2.30.00.</li>
+					<li>Added support for temperature estimation using ATOF.</li>
+					<li>Added support for Flow + Temperature VFR calibration. Debug Plots 1 - 4 used.</li>
+					<li>Updated support for Flow VFR calibration. Debug Plots 4 used.</li>
+					<li>Added support for additional scale factor for VFR used in cases of larger pipes.</li>
+					<li>Updated application to use background timer for accurate periodic measurements.</li>
+					<li>Changed Design Center timer configuration from TIMER_A1 to TIMER_A2.</li>
+				</ul>
+			</li>
+			<li>Known Issues:
+				<ul>
+					<li>IAR Water Demo reports an algorithm error when using the optimized library version</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>USS Library:
+		<ul>
+			<li>Please check USSLib Release Notes</li>
+		</ul>
+	</li>
+</ul>
+<h3>02_20_00_08</h3>
+<ul>
+	<li>MSP430FR6047 USS Water Demo:
+		<ul>
+			<li>Bug Fix:
+				<ul>
+					<li>Fixed Volume Flow Calibration Calculation</li>
+					<li>Fixed EVM430-FR6043 LCD Driver</li>
+					<li>Minor bug fixes to MSP430FR6043 application to match MSP430FR6047</li>
+					<li>Updated MSP430FR6043 IAR project to fix build configuration</li>
+					<li>Updated MSP430FR6047 IAR project configuration to communicate with GUI</li>
+					<li>Added IAR debug configuration file to default to MSP430 FET</li>
+				</ul>
+			</li>
+			<li>Enhancements:
+				<ul>
+					<li>Updated CCS compiler to v8.2.0 for prebuilt binary images.</li>
+					<li>Updated Demo Project to use optimized Lobe library</li>
+				</ul>
+			</li>
+			<li>Known Issues:
+				<ul>
+					<li>Clock error correction functionality has not yet been thoroughly tested in the Water Demo</li>
+					<li>IAR Water Demo reports an algorithm error when using the optimized library version</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+<h3>02_20_00_04</h3>
+<ul>
+	<li>MSP430FR6047 USS Water Demo:
+		<ul>
+			<li>Bug Fix:
+				<ul>
+					<li>Properly accounts for DToF offset before sending DToF value to the GUI</li>
+				</ul>
+			</li>
+			<li>Enhancements:
+				<ul>
+					<li>AbsToF DToF offset calibration</li>
+					<ul>
+						<li>When APPLICATION_ENABLE_ABSTOF_DTOF_OFFSET_CALIBRATION is enabled, the DToF offset update command from the GUI is ignored since the device is performing self-calibration</li>
+					</ul>	
+					<li>Meter calibration for multiple volume flow rate ranges</li>
+					<ul>
+						<li>Disabled by default, can be enabled in the GUI by checking the Advanced Calibration Table button in the waveforms tab</li>
+					</ul>					
+					<li>Interpolation correlation lookup table to enhance AbsToF accuracy</li>
+					<li>Compatibility for transmitting debug data to multiple debug panels in the GUI</li>
+					<li>Debug Clock Correction pre-define shows example of how to print debug data to different debug panels of the GUI</li>
+				</ul>
+			</li>
+			<li>Application migration from previous release:
+				<ul>
+					<li>When APPLICATION_ENABLE_ABSTOF_DTOF_OFFSET_CALIBRATION  is enabled, watchdog timeout is increased to account for offset calibration initialization</li>
+					<li>Default DToF calculation option set to Option Estimate to also support high volume flow rates</li>
+				</ul>
+			</li>
+			<li>Known Issues:
+				<ul>
+					<li>Clock error correction functionality has not yet been thoroughly tested in the Water Demo</li>
+					<li>IAR Water Demo reports an algorithm error when using the optimized library version</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>USS Library:
+		<ul>
+			<li>Please check USSLib Release Notes</li>
+		</ul>
+	</li>
+</ul>
+<h3>02_10_00_07</h3>
+<ul>
+	<li>MSP430FR6047 USS Water Demo:
+		<ul>
+			<li>Bug Fix:
+				<ul>
+					<li>Check envelope crossing threshold to be different than zero</li>
+				</ul>
+			</li>
+			<li>Enhancements:
+				<ul>
+					<li>Supports library release 2.10.00.07</li>
+					<li>Timer used for USSLib changed from TA4 to TA2</li>
+					<li>Change error message based on timer selection for Design Center</li>
+					<li>Update bandpass LEA filter Coefficients</li>
+					<li>Initialize LEA temp buffer to zero</li>
+					<li>Send clockRelative Error to Design Center when resonator calibration is enabled</li>
+					<li>Place multi-tone memory in RAM (no impact on water demo)</li>
+				</ul>
+			</li>
+			<li>Application migration from previous release:
+				<ul>
+					<li>Timer used for USSLib changed from TA4 to TA2 (compatible with previous release 1.40.00.01)</li>
+					<li>Application will send clock relative error to Design Center instead of amplitude if resonator calibration is enabled</li>
+				</ul>
+			</li>
+			<li>Known Issues:
+				<ul>
+					<li>IAR shows warning due to inconsistent declaration of USS_LEA_IFG in USS_Lib_HAL against USS_lea module. No issues expected.</li>
+					<li>IAR shows warning due to placing of initialized memory segment. No issues expected.</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>USS Library:
+		<ul>
+			<li>Please check USSLib Release Notes</li>
+		</ul>
+	</li>
+</ul>
+<h3>02_10_00_04</h3>
+<ul>
+	<li>MSP430FR6047 USS Water Demo:
+		<ul>		
+			<li>Bug Fix:
+				<ul>
+					<li>Fix issue with hal_adc referencing incorrect vectors</li>
+					<li>Change MCLK definition to 8Mhz instead of 16Mhz</li>
+					<li>Update Envelope Crossing Treshold for Lobe and Hilbert Algorithms</li>
+					<li>Report error with PLL Frequency outside valid range</li>
+					<li>Fix problems with IAR project</li>
+				</ul>
+			</li>
+			<li>Enhancements:
+				<ul>
+					<li>Supports library release 2.10.00.05</li>
+					<li>Rename project from "USS GUI demo" to "MSP430FR6047 USS Water Demo"</li>
+					<li>Add configuration LPM_EVM1 supporting EVM 1.0</li>
+					<li>Add support for 16Mhz in hal_system</li>
+					<li>Add definition of __EVM430_ID__ and __EVM430_VERSION__ to select EVM configuration </li>
+					<li>Add definition of __EXTRA_VERSION__ to define extra information about firmware version </li>
+					<li>hal_system gets clock configuration from USS Config</li>
+					<li>Remove meter configurations from release</li>
+					<li>Rework HMI layer to remove unnecessary depth and one-call functions. Simplify some functions which were doing overly complicated calculations</li>
+					<li>Report different errors when GUI parameter validation fails</li>
+					<li>Place USS config structure in a defined memory section</li>
+					<li>Rename USS_ALG_ABS_TOF_HILB_xxx_SEARCH_RANGE to USS_ALG_ABS_TOF_xxx_SEARCH_RANGE</li>
+					<li>Add support for additional TX pattern (disabled by default)</li>
+				</ul>
+			</li>
+			<li>Application migration from previous release:
+				<ul>
+					<li>Application was renamed. Demo project needs to be re-imported to CCS/IAR</li>
+					<li>New CCS/IAR project configuration added to support EVM 1.0</li>
+					<li>Design Center must send a TX pattern of "Single Tone", otherwise the GUI will show an error</li>
+					<li>Design Center must send an algorithm 0 or 1, otherwise the GUI will show an error</li>
+					<li>The Design Center configuration must include the Envelope Crossing Treshold (in percentage) for both Algorithm #0 and #1, otherwise the algorithms won't work properly</li>
+					<li>The Design Center configuration must include Negative and Positive search ranges for Algorithm #1 (not used for Algorithm #0), otherwise the algorithm won't work properly</li>
+					<li>Application now reports signal amplitude in the Design Center Debug panel. Prototype of Testing_Update_Results was modified</li>
+					<li>HAL files use and require new definitions __EVM430_ID__, __EVM430_VER__ to configure hardware (__FR6047_EVM__ deprecated). Project won't build without these definitions</li>
+					<li>Application version stored in "VERSION" segment now includes __EXTRA_VERSION, __EVM430_ID__ and __EVM430_VER__. Project won't build without these definitions</li>
+					<li>New Error packet implemented to send errors to Design Center. Some prototypes of ussDCCommandHandlers were modified</li>
+					<li>Prototypes of functions in USSLibGUIApp changed to support new functionality</li>
+					<li>Several lower-layer functions removed from hmi.h and made local to reduce unecessary depth</li>
+					<li>Clock definition in HAL_System make reference to USS_userConfig.h definitons. User must make sure USS_userConfig.h has the correct clock definitions</li>
+					<li>USS_ALG_ABS_TOF_HILB_xxx_SEARCH_RANGE in USS_userConfig.h was renamed to USS_ALG_ABS_TOF_xxx_SEARCH_RANGE</li>
+					<li>Default MCLK definition in USS_userConfig.h was changed to 8Mhz</li>
+					<li>Definitions in USS_App_userConfig.h changed. Functionality such as AGC calibration can be enabled in code, but controlled through the calibration interval variable</li>
+					<li>CCS Linker file was modified to place USS_userConfig persistent arrays at top of memory. This change is not required but it's useful for debugging</li>
+					<li>Option for additional TX sequence added. Not used for water application</li>
+					<li>Some variables for multi-tone were placed in "RAM_Trill" memory segment requiring linker file changes. Not used for water application.</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>USS Library:
+		<ul>
+			<li>Please check USSLib Release Notes</li>
+		</ul>
+	</li>
+</ul>
+<h3>02_10_00_03</h3>
+<ul>
+	<li>USS GUI demo project:
+		<ul>		
+			<li>Bug Fix:
+				<ul>
+					<li>Fix IAR linker file pointing to wrong file</li>
+				</ul>
+			</li>
+			<li>Enhancements:
+				<ul>
+					<li>Supports library release 2.10.00.04</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+<h3>02_10_00_02</h3>
+<ul>
+	<li>USS GUI demo project:
+		<ul>		
+			<li>Bug Fix:
+				<ul>
+					<li>Fix default configuration to work out-of-the-box with RevA and RevB</li>
+					<li>Fix size of gNVMemBlock</li>
+				</ul>
+			</li>
+			<li>Enhancements:
+				<ul>
+					<li>Supports library release 2.10.00.02</li>
+					<li>Add USS_ALG_WIN_NUM_CYCLES_DELTA to library configuration</li>
+					<li>Rename USS_ALG_VOLUME_RATE_COMPUTATION_OPTION to USS_ALG_VOLUME_RATE_COMPUTATION_MODE</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+<h3>02_10_00_01</h3>
+<ul>
+	<li>USS GUI demo project:
+		<ul>		
+			<li>Bug Fix:
+				<ul>
+					<li>Fix incorrect PPG duty cycle calculation</li>
+				</ul>
+			</li>
+			<li>Enhancements:
+				<ul>
+					<li>Supports library release 2.10.00.01 with support for gas</li>
+					<li>Add option to use gas in configuration file (not supported by project) </li>
+					<li>Add support for Hilbert based computation</li>
+					<li>Add design center support for computation mode using Param1 (options 0 and 1 supported) </li>
+					<li>Add design center support for ULP bias using Param2</li>
+					<li>Remove use of Param10 for winNumCycles</li>
+					<li>Add design center support for envelope crossing treshold using Param8</li>
+					<li>Add design center support for tracking range using Param9/10</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+<h3>01_40_00_01</h3>
+<ul>
+	<li>USS GUI demo project:
+		<ul>		
+			<li>Bug Fix:
+				<ul>
+					<li>N/A</li>
+				</ul>
+			</li>
+			<li>Enhancements:
+				<ul>
+					<li>Supports library release 1.40.00.06</li>
+					<li>Change application version scheme</li>
+					<li>Add periodic DC Offset estimation, disabled by default</li>
+					<li>winNumCycles updated with number of pulses</li>
+					<li>USS_BIAS_IMPEDANCE set to 2800 by default</li>
+					<li>Add checks for OSR, PLL Freq, Param[3:5,7]</li>
+					<li>Rename GUI param structures and DCCommand Handler functions</li>
+					<li>GUI shows "0.0" when result is close to zero</li>
+					<li>Remove references to PPG prescaler</li>
+					<li>Application released independently of library</li>
+					<li>Remove Library version from application</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+<h3>01_00_01_08</h3>
+<ul>
+	<li>USS GUI demo project:
+		<ul>		
+			<li>Bug Fix:
+				<ul>
+					<li>Add initalization of restartLowPowerCaptureCount configuration parameter</li>
+					<li>Fix build error when disabling LCD</li>
+					<li>Stop timer used by Design Center Comm when not used</li>
+					<li>Move timer used by USS to optimize power consumption</li>
+					<li>Disable ADC when not used</li>
+					<li>Fix build error when disabling LCD</li>
+					<li>Fix issue when error is detected during resonator calibration</li>
+					<li>Removed unnecessary USS_DTC_START_ADDRESS macro from library configuration in all example projects</li>
+				</ul>
+			</li>
+			<li>Enhancements:
+				<ul>
+					<li>Supports library release 1.40.00.03</li>
+					<li>Updated USS_DIAGNOSTIC_MODE Library configuration from USS_diagnostics_mode_2 to USS_diagnostics_mode_0</li>
+					<li>Add option to enable/disable SVSH</li>
+					<li>Change high/low PPG periods to improve granularity</li>
+					<li>Change range of transdducer frequency to >2Mhz</li>
+					<li>Detect PLL error and reset USS module</li>
+					<li>Add option to control muxChargePumpMode</li>
+					<li>Add option to control bias impedance</li>
+					<li>Updated application to reset USS module when a PLL unlock event is detected</li>
+					<li>ULP bias configuration can be controlled using Param2 from USS Design Center</li>
+					</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+<h3>01_00_01_03</h3>
+<ul>
+	<li>USS GUI demo project:
+		<ul>		
+			<li>Bug Fix:
+				<ul>
+					<li>N/A</li>
+				</ul>
+			</li>
+			<li>Enhancements:
+				<ul>
+					<li>Supports library release 1.30.00.04</li>
+					<li>Implement resonator calibration</li>
+					<li>Added filter coefficients for four different sampling frequencies</li>
+					<li>Added option to enable Automatic Gain Control</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+<h3>01_00_01_00</h3>
+<ul>
+	<li>USS GUI demo project:
+		<ul>
+			<li>Enhancement:
+				<ul>
+					<li>External release with library 1.30.00.01</li>
+				</ul>	
+			</li>
+		</ul>
+	</li>	
+</ul>
+<h2><a name="Installation" id="Installation">Installation and Usage</a></h2>
+<h2><a name="Device_Support"></a>Device Support</h2>
+The following families of devices are support in this release of MSP430 USS 
+Library:<br>
+<ul>
+<li>MSP430FR6047</li>
+</ul>
+<h2><a name="Dependencies" id="Dependencies">Dependencies</a></h2>
+<ul>
+<li>CCS 10.0.0</li>
+<li>IAR Embedded Workbench 7.20</li>
+<li>IQMath libraries for MSP430FR5xx/6xx. This library is added as part of the 
+release. The template project has been setup to reference the library
+included in this release.</li>
+<li>USS Library. This library is added as part of the release. The template 
+project has been setup to reference the library included in this release.</li>
+</ul>
+<h2><a name="Validation" id="Validation">Validation Information</a></h2>
+<p>This is a GA version.</p>
+<h2><a name="Upgrade_and_Compatibility_Information"></a>Upgrade and Compatibility Information</h2>
+<h2><a name="Examples" id="Examples">Examples</a></h2>
+<p>The examples may be built with CCS or IAR.
+<h2><a name="Known_Issues2"></a>Known Issues</h2>
+<p>N/A.</p>
+<h2><a name="Technical_Support" id="Technical_Support">Technical
+Support and Product Updates</a></h2>
+<ul>
+<li>Please visit the  <a href="http://e2e.ti.com/support/microcontrollers/msp430/default.aspx">MSP430 E2E Forum</a> for support</li>
+<li>For other questions and support, please visit <a href="http://support.ti.com/">support.ti.com</a></li>
+</ul>
+<h2><small><small>Additional Resources</small></small></h2>
+<small><big>For more information, visit <a href="http://www.ti.com">www.ti.com</a>.</big>
+</small>
+</body></html>

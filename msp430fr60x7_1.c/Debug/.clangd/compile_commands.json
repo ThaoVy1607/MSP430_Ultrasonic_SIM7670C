@@ -1,0 +1,7 @@
+[
+   {
+      "directory" : "C:/ti/vy/UltrasonicWaterFR604x_02_40_00_00/UltrasonicWaterFR604x_02_40_00_00/msp430fr60x7_1.c/Debug",
+      "command"   : "clang++ -I\"C:/ti/ccs2010/ccs/ccs_base/msp430/include\" -I\"C:/ti/vy/UltrasonicWaterFR604x_02_40_00_00/UltrasonicWaterFR604x_02_40_00_00/msp430fr60x7_1.c\" -I\"C:/ti/ccs2010/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include\" -D__MSP430FR6047__ -D_MPU_ENABLE",
+      "file"      : "C:/ti/vy/UltrasonicWaterFR604x_02_40_00_00/UltrasonicWaterFR604x_02_40_00_00/msp430fr60x7_1.c/msp430fr60x7_1.c"
+   }
+]

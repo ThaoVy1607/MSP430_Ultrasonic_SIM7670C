@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "MSP430FR6047EVM_USS_Water_Demo",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "MSP430FR6047EVM_USS_Water_Demo",
+                "resourceId": "/MSP430FR6047EVM_USS_Water_Demo"
+            },
+            "debuggerSettings": {
+                "targetConfigs/MSP430FR6047.ccxml": {
+                    "TI MSP430 USB1/MSP430": {
+                        "data": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n<PropertyValues/>\n"
+                    }
+                },
+                "targetConfigs/MSP430FR60471.ccxml": {
+                    "TI MSP430 USB1/MSP430": {
+                        "data": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n<PropertyValues>\n\n  <property id=\"VerifyAfterProgramLoad\">\n    <curValue>Full verification</curValue>\n  </property>\n\n  <property id=\"HaltOnConnect\">\n    <curValue>1</curValue>\n  </property>\n\n  <property id=\"AutoResetOnConnect\">\n    <curValue>1</curValue>\n  </property>\n\n</PropertyValues>\n"
+                    }
+                }
+            }
+        }
+    ]
+}
